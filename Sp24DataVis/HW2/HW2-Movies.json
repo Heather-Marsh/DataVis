@@ -1,0 +1,746 @@
+[
+  {
+    "op": "core/column-removal",
+    "columnName": "Gross",
+    "description": "Remove column Gross"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "RunTime",
+    "expression": "grel:if(isNull(cells['MOVIES'].value), 1, 0) +\nif(isNull(cells['GENRE'].value), 1, 0) + \nif(isNull(cells['RATING'].value), 1, 0) + \nif(isNull(cells['ONE-LINE'].value), 1, 0) +\nif(isNull(cells['STARS'].value), 1, 0) + \nif(isNull(cells['VOTES'].value), 1, 0) + \nif(isNull(cells['RunTime'].value), 1, 0)",
+    "onError": "set-to-blank",
+    "newColumnName": "Missing Values",
+    "columnInsertIndex": 8,
+    "description": "Create column Missing Values at index 8 based on column RunTime using expression grel:if(isNull(cells['MOVIES'].value), 1, 0) +\nif(isNull(cells['GENRE'].value), 1, 0) + \nif(isNull(cells['RATING'].value), 1, 0) + \nif(isNull(cells['ONE-LINE'].value), 1, 0) +\nif(isNull(cells['STARS'].value), 1, 0) + \nif(isNull(cells['VOTES'].value), 1, 0) + \nif(isNull(cells['RunTime'].value), 1, 0)"
+  },
+  {
+    "op": "core/row-flag",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "range",
+          "name": "Missing Values",
+          "expression": "value",
+          "columnName": "Missing Values",
+          "from": 1,
+          "to": 4.02,
+          "selectNumeric": true,
+          "selectNonNumeric": true,
+          "selectBlank": true,
+          "selectError": true
+        }
+      ],
+      "mode": "row-based"
+    },
+    "flagged": true,
+    "description": "Flag rows"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "range",
+          "name": "Missing Values",
+          "expression": "value",
+          "columnName": "Missing Values",
+          "from": 1,
+          "to": 4.02,
+          "selectNumeric": true,
+          "selectNonNumeric": true,
+          "selectBlank": true,
+          "selectError": true
+        }
+      ],
+      "mode": "row-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Missing Values",
+    "description": "Remove column Missing Values"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "STARS",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "Director:\nShaunt Nigoghossian\n| \n    Stars:\nDerek Phillips, \nJessica Henwick, \nMamie Gummer, \nJason O'Mara",
+          "Director:\nShaunt Nigoghossian\n| \n    Stars:\nJessica Henwick, \nJason O'Mara, \nMamie Gummer, \nDerek Phillips",
+          "Director:\nShaunt Nigoghossian\n| \n    Stars:\nMamie Gummer, \nDerek Phillips, \nJason O'Mara, \nJessica Henwick"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Shaunt Nigoghossian|     Stars:Derek Phillips, Jessica Henwick, Mamie Gummer, Jason O'Mara"
+      },
+      {
+        "from": [
+          "Director:\nPeter Jackson\n| \n    Stars:\nElijah Wood, \nIan McKellen, \nViggo Mortensen, \nOrlando Bloom",
+          "Director:\nPeter Jackson\n| \n    Stars:\nElijah Wood, \nViggo Mortensen, \nIan McKellen, \nOrlando Bloom"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Peter Jackson|     Stars:Elijah Wood, Ian McKellen, Viggo Mortensen, Orlando Bloom"
+      },
+      {
+        "from": [
+          "Stars:\nSarah Natochenny, \nZeno Robinson, \nRay Chase, \nCasey Mongillo",
+          "Stars:\nSarah Natochenny, \nZeno Robinson, \nCasey Mongillo, \nRay Chase"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Stars:Sarah Natochenny, Zeno Robinson, Ray Chase, Casey Mongillo"
+      },
+      {
+        "from": [
+          "Director:\nJesper Ganslandt\n| \n    Stars:\nAlexander Abdallah, \nEvin Ahmad, \nAyaan Ahmed, \nAli Alarik",
+          "Director:\nJesper Ganslandt\n| \n    Stars:\nEvin Ahmad, \nAlexander Abdallah, \nAyaan Ahmed, \nAli Alarik"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Jesper Ganslandt|     Stars:Alexander Abdallah, Evin Ahmad, Ayaan Ahmed, Ali Alarik"
+      },
+      {
+        "from": [
+          "Stars:\nRodrigo Alfonso, \nDavid Alvarado, \nWilliam Guirola, \nWyatt Hinz",
+          "Stars:\nWilliam Guirola, \nWyatt Hinz, \nRodrigo Alfonso, \nDavid Alvarado"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Stars:Rodrigo Alfonso, David Alvarado, William Guirola, Wyatt Hinz"
+      },
+      {
+        "from": [
+          "Director:\nFernando González Molina\n| \n    Stars:\nMarta Etura, \nLeonardo Sbaraglia, \nNene, \nFrancesc Orella",
+          "Director:\nFernando González Molina\n| \n    Stars:\nMarta Etura, \nNene, \nLeonardo Sbaraglia, \nFrancesc Orella"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Fernando González Molina|     Stars:Marta Etura, Leonardo Sbaraglia, Nene, Francesc Orella"
+      },
+      {
+        "from": [
+          "Director:\nChris Savino\n| \n    Stars:\nJames Arnold Taylor, \nLouis Chirillo, \nBrittney Wilson, \nMaryke Hendrikse",
+          "Director:\nChris Savino\n| \n    Stars:\nJames Arnold Taylor, \nLouis Chirillo, \nMaryke Hendrikse, \nBrittney Wilson"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Chris Savino|     Stars:James Arnold Taylor, Louis Chirillo, Brittney Wilson, Maryke Hendrikse"
+      },
+      {
+        "from": [
+          "Director:\nDaryne Joshua\n| \n    Stars:\nAma Qamata, \nGail Mabalane, \nKhosi Ngema, \nThabang Molaba",
+          "Director:\nDaryne Joshua\n| \n    Stars:\nAma Qamata, \nKhosi Ngema, \nGail Mabalane, \nThabang Molaba"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Daryne Joshua|     Stars:Ama Qamata, Gail Mabalane, Khosi Ngema, Thabang Molaba"
+      },
+      {
+        "from": [
+          "Stars:\nAlexa Kahn, \nRachelle Heger, \nErica Mendez, \nMarin M. Miller",
+          "Stars:\nRachelle Heger, \nAlexa Kahn, \nErica Mendez, \nMarin M. Miller"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Stars:Alexa Kahn, Rachelle Heger, Erica Mendez, Marin M. Miller"
+      },
+      {
+        "from": [
+          "Director:\nCharlotte Brändström\n| \n    Stars:\nJakob Eklund, \nJoel Kinnaman, \nMikael Tornving, \nRuth Vega Fernandez",
+          "Director:\nCharlotte Brändström\n| \n    Stars:\nJakob Eklund, \nJoel Kinnaman, \nRuth Vega Fernandez, \nMikael Tornving"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Charlotte Brändström|     Stars:Jakob Eklund, Joel Kinnaman, Mikael Tornving, Ruth Vega Fernandez"
+      },
+      {
+        "from": [
+          "Stars:\nItzan Escamilla, \nMiguel Bernardeau, \nArón Piper, \nOmar Ayuso",
+          "Stars:\nItzan Escamilla, \nOmar Ayuso, \nMiguel Bernardeau, \nArón Piper"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Stars:Itzan Escamilla, Miguel Bernardeau, Arón Piper, Omar Ayuso"
+      },
+      {
+        "from": [
+          "Director:\nJake Kasdan\n| \n    Stars:\nDwayne Johnson, \nJack Black, \nKevin Hart, \nKaren Gillan",
+          "Director:\nJake Kasdan\n| \n    Stars:\nDwayne Johnson, \nKaren Gillan, \nKevin Hart, \nJack Black"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Jake Kasdan|     Stars:Dwayne Johnson, Jack Black, Kevin Hart, Karen Gillan"
+      },
+      {
+        "from": [
+          "Directors:\nRoy Burdine, \nJen Bennett\n| \n    Stars:\nAimee Carrero, \nKaren Fukuhara, \nAJ Michalka, \nMarcus Scribner",
+          "Directors:\nJen Bennett, \nRoy Burdine\n| \n    Stars:\nAimee Carrero, \nKaren Fukuhara, \nAJ Michalka, \nMarcus Scribner"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Directors:Roy Burdine, Jen Bennett|     Stars:Aimee Carrero, Karen Fukuhara, AJ Michalka, Marcus Scribner"
+      },
+      {
+        "from": [
+          "Directors:\nMichael Mullen, \nShih Ming Tay\n| \n    Stars:\nPaul-Mikél Williams, \nSean Giambrone, \nKausar Mohammed, \nJenna Ortega",
+          "Directors:\nShih Ming Tay, \nMichael Mullen\n| \n    Stars:\nPaul-Mikél Williams, \nSean Giambrone, \nKausar Mohammed, \nJenna Ortega"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Directors:Michael Mullen, Shih Ming Tay|     Stars:Paul-Mikél Williams, Sean Giambrone, Kausar Mohammed, Jenna Ortega"
+      },
+      {
+        "from": [
+          "Stars:\nAshleigh Ball, \nTara Strong, \nTabitha St. Germain, \nAndrea Libman",
+          "Stars:\nTara Strong, \nAshleigh Ball, \nTabitha St. Germain, \nAndrea Libman"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Stars:Ashleigh Ball, Tara Strong, Tabitha St. Germain, Andrea Libman"
+      },
+      {
+        "from": [
+          "Director:\nBrad Silberling\n| \n    Stars:\nAustin Abrams, \nMidori Francis, \nDante Brown, \nTroy Iwata",
+          "Director:\nBrad Silberling\n| \n    Stars:\nMidori Francis, \nAustin Abrams, \nDante Brown, \nTroy Iwata"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Brad Silberling|     Stars:Austin Abrams, Midori Francis, Dante Brown, Troy Iwata"
+      },
+      {
+        "from": [
+          "Stars:\nAngelo Spagnoletti, \nCristina Cappelli, \nAlfredo Cerrone, \nAzzurra Iacone",
+          "Stars:\nCristina Cappelli, \nAzzurra Iacone, \nAngelo Spagnoletti, \nAlfredo Cerrone"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Stars:Angelo Spagnoletti, Cristina Cappelli, Alfredo Cerrone, Azzurra Iacone"
+      },
+      {
+        "from": [
+          "Director:\nQuentin Tarantino\n| \n    Stars:\nUma Thurman, \nDavid Carradine, \nDaryl Hannah, \nMichael Madsen",
+          "Director:\nQuentin Tarantino\n| \n    Stars:\nUma Thurman, \nDavid Carradine, \nMichael Madsen, \nDaryl Hannah"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Quentin Tarantino|     Stars:Uma Thurman, David Carradine, Daryl Hannah, Michael Madsen"
+      },
+      {
+        "from": [
+          "Stars:\nAlessandra Mastronardi, \nBeren Saat, \nSamira Wiley",
+          "Stars:\nAlessandra Mastronardi, \nSamira Wiley, \nBeren Saat"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Stars:Alessandra Mastronardi, Beren Saat, Samira Wiley"
+      },
+      {
+        "from": [
+          "Director:\nFred Savage\n| \n    Stars:\nAustin Abrams, \nMidori Francis, \nDante Brown, \nTroy Iwata",
+          "Director:\nFred Savage\n| \n    Stars:\nMidori Francis, \nAustin Abrams, \nDante Brown, \nTroy Iwata"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Fred Savage|     Stars:Austin Abrams, Midori Francis, Dante Brown, Troy Iwata"
+      },
+      {
+        "from": [
+          "Director:\nSaul Dibb\n| \n    Stars:\nAnne-Marie Duff, \nJudah Cousin, \nAnnabel Scholey, \nRafe Spall",
+          "Director:\nSaul Dibb\n| \n    Stars:\nRafe Spall, \nAnnabel Scholey, \nAnne-Marie Duff, \nJudah Cousin"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Saul Dibb|     Stars:Anne-Marie Duff, Judah Cousin, Annabel Scholey, Rafe Spall"
+      },
+      {
+        "from": [
+          "Director:\nJoseph Sherman\n| \n    Stars:\nJames Arnold Taylor, \nLouis Chirillo, \nMaryke Hendrikse, \nAshleigh Ball",
+          "Director:\nJoseph Sherman\n| \n    Stars:\nJames Arnold Taylor, \nLouis Chirillo, \nAshleigh Ball, \nMaryke Hendrikse"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Joseph Sherman|     Stars:James Arnold Taylor, Louis Chirillo, Maryke Hendrikse, Ashleigh Ball"
+      },
+      {
+        "from": [
+          "Director:\nShaunt Nigoghossian\n| \n    Stars:\nDerek Phillips, \nChris Diamantopoulos, \nJessica Henwick, \nElias Toufexis",
+          "Director:\nShaunt Nigoghossian\n| \n    Stars:\nElias Toufexis, \nDerek Phillips, \nJessica Henwick, \nChris Diamantopoulos"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Shaunt Nigoghossian|     Stars:Derek Phillips, Chris Diamantopoulos, Jessica Henwick, Elias Toufexis"
+      },
+      {
+        "from": [
+          "Director:\nPamela Romanowsky\n| \n    Stars:\nAustin Abrams, \nMidori Francis, \nDante Brown, \nTroy Iwata",
+          "Director:\nPamela Romanowsky\n| \n    Stars:\nMidori Francis, \nAustin Abrams, \nDante Brown, \nTroy Iwata"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Director:Pamela Romanowsky|     Stars:Austin Abrams, Midori Francis, Dante Brown, Troy Iwata"
+      },
+      {
+        "from": [
+          "Directors:\nRoy Burdine, \nChristina Manrique\n| \n    Stars:\nAimee Carrero, \nKaren Fukuhara, \nAJ Michalka, \nMarcus Scribner",
+          "Directors:\nChristina Manrique, \nRoy Burdine\n| \n    Stars:\nAimee Carrero, \nKaren Fukuhara, \nAJ Michalka, \nMarcus Scribner"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Directors:Roy Burdine, Christina Manrique|     Stars:Aimee Carrero, Karen Fukuhara, AJ Michalka, Marcus Scribner"
+      },
+      {
+        "from": [
+          "Stars:\nMinori Chihara, \nYûko Gotô, \nAya Hirano, \nTomokazu Sugita",
+          "Stars:\nTomokazu Sugita, \nAya Hirano, \nMinori Chihara, \nYûko Gotô"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Stars:Minori Chihara, Yûko Gotô, Aya Hirano, Tomokazu Sugita"
+      }
+    ],
+    "description": "Mass edit cells in column STARS"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "MOVIES",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "S'parta",
+          "Sparta"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "S'parta"
+      },
+      {
+        "from": [
+          "Oh Baby",
+          "Oh Baby..."
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Oh Baby"
+      },
+      {
+        "from": [
+          "I.T.",
+          "It"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "I.T."
+      }
+    ],
+    "description": "Mass edit cells in column MOVIES"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "RATING",
+    "expression": "grel:if(isNull(value), 0, value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column RATING using expression grel:if(isNull(value), 0, value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "VOTES",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column VOTES using expression value.toNumber()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "VOTES",
+    "expression": "grel:if(isNull(value), 0, value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column VOTES using expression grel:if(isNull(value), 0, value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "RunTime",
+    "expression": "grel:if(isNull(value), 0, value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column RunTime using expression grel:if(isNull(value), 0, value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "VOTES",
+    "expression": "grel:value.replace(\",\", \"\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column VOTES using expression grel:value.replace(\",\", \"\")"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "VOTES",
+    "expression": "grel:value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column VOTES using expression grel:value.toNumber()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "RunTime",
+    "expression": "grel:value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column RunTime using expression grel:value.toNumber()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "RATING",
+    "expression": "grel:value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column RATING using expression grel:value.toNumber()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "MOVIES",
+    "expression": "grel:if(isNull(value), \"N/A\", value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column MOVIES using expression grel:if(isNull(value), \"N/A\", value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "YEAR",
+    "expression": "grel:if(isNull(value), \"N/A\", value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column YEAR using expression grel:if(isNull(value), \"N/A\", value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "ONE-LINE",
+    "expression": "grel:if(isNull(value), \"N/A\", value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column ONE-LINE using expression grel:if(isNull(value), \"N/A\", value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "YEAR",
+    "expression": "grel:value.trim()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column YEAR using expression grel:value.trim()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "YEAR",
+    "expression": "grel:if(length(value) < 9, value.replace(\"(\", \"\").replace(\")\", \"\"), value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column YEAR using expression grel:if(length(value) < 9, value.replace(\"(\", \"\").replace(\")\", \"\"), value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "YEAR",
+    "expression": "grel:if(length(value) < 7, value.replace(/–/,\"\"), value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column YEAR using expression grel:if(length(value) < 7, value.replace(/–/,\"\"), value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "YEAR",
+    "expression": "grel:value.replace(/[a-zA-Z ]+/, '')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column YEAR using expression grel:value.replace(/[a-zA-Z ]+/, '')"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "YEAR",
+    "expression": "grel:value.replace(\"()\", \"\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column YEAR using expression grel:value.replace(\"()\", \"\")"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "YEAR",
+    "expression": "grel:if(length(value) < 9, value.replace(\"(\", \"\").replace(\")\", \"\"), value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column YEAR using expression grel:if(length(value) < 9, value.replace(\"(\", \"\").replace(\")\", \"\"), value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "YEAR",
+    "expression": "grel:if(length(value) < 7, value.replace(/–/,\"\"),value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column YEAR using expression grel:if(length(value) < 7, value.replace(/–/,\"\"),value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "YEAR",
+    "expression": "grel:if(length(value) < 7, value.replace(value,\"(\" + value + /–/ + value + \")\"),value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column YEAR using expression grel:if(length(value) < 7, value.replace(value,\"(\" + value + /–/ + value + \")\"),value)"
+  },
+  {
+    "op": "core/column-split",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "YEAR",
+    "guessCellType": true,
+    "removeOriginalColumn": true,
+    "mode": "lengths",
+    "fieldLengths": [
+      5,
+      5
+    ],
+    "description": "Split column YEAR by field lengths"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "YEAR 1",
+    "newColumnName": "startYear",
+    "description": "Rename column YEAR 1 to startYear"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "YEAR 2",
+    "newColumnName": "endYear",
+    "description": "Rename column YEAR 2 to endYear"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "startYear",
+    "expression": "grel:value.replace(\"(\", \"\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column startYear using expression grel:value.replace(\"(\", \"\")"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "endYear",
+    "expression": "grel:value.replace(/–/, \"\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column endYear using expression grel:value.replace(/–/, \"\")"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "startYear",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column startYear using expression value.toNumber()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "endYear",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column endYear using expression value.toNumber()"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "RATING",
+    "expression": "grel:if(value == 0, \"Not known\", value)",
+    "onError": "set-to-blank",
+    "newColumnName": "Verdict",
+    "columnInsertIndex": 5,
+    "description": "Create column Verdict at index 5 based on column RATING using expression grel:if(value == 0, \"Not known\", value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Verdict",
+    "expression": "grel:if(value > 8.0, \"Super Hit\", value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Verdict using expression grel:if(value > 8.0, \"Super Hit\", value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Verdict",
+    "expression": "grel:if(isNumeric(value), if ((value > 0).and(value <= 4.5), \"Flop\", value), value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Verdict using expression grel:if(isNumeric(value), if ((value > 0).and(value <= 4.5), \"Flop\", value), value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Verdict",
+    "expression": "grel:if(isNumeric(value), if ((value > 4.5).and(value <= 6.5), \"Average\", value), value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Verdict using expression grel:if(isNumeric(value), if ((value > 4.5).and(value <= 6.5), \"Average\", value), value)"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Verdict",
+    "expression": "grel:if(isNumeric(value), if ((value > 6.5).and(value <= 8.0), \"Hit\", value), value)",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Verdict using expression grel:if(isNumeric(value), if ((value > 6.5).and(value <= 8.0), \"Hit\", value), value)"
+  }
+]
